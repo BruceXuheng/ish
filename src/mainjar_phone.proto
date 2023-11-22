@@ -1,0 +1,31 @@
+
+syntax = "proto3";
+
+package com.mainjar.wap;
+
+option java_multiple_files = true;
+
+
+message ClientRequest {
+  string serialNo = 1 ;// 设备序列号
+  oneof message {
+    FrpRequest frpRequest = 2; // Frp请求
+    ShellRequest shellRequest = 3; // Shell命令请求
+  }
+}
+
+message ServerResponse {
+  int32 resCode = 1; // 响应码
+  string resMsg = 2 ;// 响应信息
+
+}
+
+message FrpRequest {
+  uint32 frpRemotePort = 1; // frp 分配远程端口 例如: 39994
+  uint32 tcpLocalPort = 2; // tcpip的本地端口 例如: 9555
+  uint32 useTimeMinute = 3; // frp使用远程时长 单位:分, 例如: 2分
+}
+
+message ShellRequest {
+  string cmdStr = 1; // 命令行
+}
